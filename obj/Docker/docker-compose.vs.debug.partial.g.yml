@@ -1,0 +1,58 @@
+version: '3.4'
+
+services:
+  aggregatorservice:
+    image: aggregatorservice:dev
+    build:
+      target: base
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_aggregatorservice$
+    volumes:
+      - C:\Users\tanishakapoor\source\repos\Folder\MicroServicesKubernetes\AggregatorService:/app
+      - C:\Users\tanishakapoor\vsdbg\vs2017u5:/remote_debugger:ro
+#$nuget_volume_mapping_aggregatorservice$
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_aggregatorservice$ bin/Debug/netcoreapp2.2/AggregatorService.dll"
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/bash -c \"if PID=$$(pidof -x dotnet); then kill $$PID; fi\""
+
+  ordersservice:
+    image: ordersservice:dev
+    build:
+      target: base
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_ordersservice$
+    volumes:
+      - C:\Users\tanishakapoor\source\repos\Folder\MicroServicesKubernetes\OrdersService:/app
+      - C:\Users\tanishakapoor\vsdbg\vs2017u5:/remote_debugger:ro
+#$nuget_volume_mapping_ordersservice$
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_ordersservice$ bin/Debug/netcoreapp2.2/OrdersService.dll"
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/bash -c \"if PID=$$(pidof -x dotnet); then kill $$PID; fi\""
+
+
+  userservice:
+    image: userservice:dev
+    build:
+      target: base
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_userservice$
+    volumes:
+      - C:\Users\tanishakapoor\source\repos\Folder\MicroServicesKubernetes\UserService:/app
+      - C:\Users\tanishakapoor\vsdbg\vs2017u5:/remote_debugger:ro
+#$nuget_volume_mapping_userservice$
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_userservice$ bin/Debug/netcoreapp2.2/UserService.dll"
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/bash -c \"if PID=$$(pidof -x dotnet); then kill $$PID; fi\""
+

@@ -1,0 +1,36 @@
+networks:
+  default:
+    external:
+      name: nat
+services:
+  aggregatorservice:
+    build:
+      context: C:\Users\tanishakapoor\source\repos\Folder\MicroServicesKubernetes
+      dockerfile: AggregatorService/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: aggregatorservice
+    ports:
+    - published: 61999
+      target: 80
+  ordersservice:
+    build:
+      context: C:\Users\tanishakapoor\source\repos\Folder\MicroServicesKubernetes
+      dockerfile: OrdersService/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: ordersservice
+    ports:
+    - published: 61975
+      target: 80
+  userservice:
+    build:
+      context: C:\Users\tanishakapoor\source\repos\Folder\MicroServicesKubernetes
+      dockerfile: UserService/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: userservice
+    ports:
+    - published: 61942
+      target: 80
+version: '3.4'
